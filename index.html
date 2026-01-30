@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frontend Quiz App</title>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="current-subject">
+          <span class="subject-icon" id="currentSubjectIcon"></span>
+          <span class="subject-icon" id="currentSubjectName"></span>
+        </div>
+
+        <div class="theme-toggle">
+          <button id="themeToggle" aria-label="Toggle theme">
+            <img src="image/icon-sun-light.svg" alt="Sun Icon">
+            <img src="image/icon-moon-light.svg" alt="Moon Icon">
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="screen active" id="welcomeScreen">
+        <div class="welcome-text">
+          <h1 class="welcome-title">
+            <span class="welcome-greeting">Welcome to the</span>
+            <span class="welcome-brand">Frontend Quiz!</span>
+          </h1>
+          <p class="welcome-subtitle">Pick a subject to get started</p>
+        </div>
+        <div class="subject-grid" id="subjectGrid">
+          <!--Subject will be inserted here dynamucally-->
+        </div>
+      </div>
+    </div>
+
+    <!--Quiz Screen-->
+    <div id="quizScreen" class="screen">
+      <div class="quiz-container">
+        <div class="quiz-content">
+          <div class="question-counter">
+            Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span>
+          </div>
+          <h2 class="question-text" id="questionText"></h2>
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="answers-grid" id="answersGrid">
+          <!--Answers will be dynamically fill here-->
+        </div>
+        <button class="btn-submit" id="submitButton">
+          Submit answer
+        </button>
+        <div class="error-message" id="errorMessage">
+          <img src="image/icon-error.svg" alt="Error Icon">
+          <span>Please select an answer</span>
+        </div>
+      </div>
+    </div>
+
+    <!--Results screen-->
+    <div class="screen" id="resultsScreen">
+      <div class="results-container">
+        <div class="result-text">
+          <h1 class="results-title">Quiz Completed</h1>
+          <p class="results-subtitle">You scored...</p>
+        </div>
+        <div class="results-card">
+          <div class="results-subject">
+            <span class="subject-icon" id="resultsSubjectIcon"></span>
+            <span class="subject-name" id="resultsSubjectName"></span>
+          </div>
+          <div class="result-score">
+            <div class="score-number" id="finalScore">8</div>
+            <div class="score-total">out of <span id="resultsTotalQuestions">10</span></div>
+          </div>
+        </div>
+        <button class="btn-submit" id="playAgainButton">Play Again</button>
+      </div>
+    </div>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
