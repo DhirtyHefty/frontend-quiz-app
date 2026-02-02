@@ -118,7 +118,8 @@ function loadQuestion() {
 
     label.innerHTML = `
       <input type="radio" name="answer" value="${option}" />
-      <span>${option}</span>
+      <span class="option-letter"></span>
+      <span class="option-text">${option}</span>
     `;
 
     label.addEventListener("click", () => {

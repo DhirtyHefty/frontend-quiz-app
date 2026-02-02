@@ -259,6 +259,7 @@ body.light .icon-moon{
 .answers-grid {
   display: grid;
   gap: 1rem;
+  counter-reset: option;
 }
 
 .answers-grid label {
@@ -270,17 +271,41 @@ body.light .icon-moon{
   gap: 1rem;
   cursor: pointer;
   transition: var(--transition);
+
+  counter-increment: option;
 }
 
-.answers-grid input {
+.answers-grid input[type="radio"] {
   accent-color: var(--accent);
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
+.option-letter{
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+body.light .option-letter{
+  background-color: var(--bg-option);
+}
 .answers-grid label:hover,
 .answers-grid label:focus-within {
   outline: 2px solid var(--accent);
 }
 
+.option-letter::before{
+  content: counter(option, upper-alpha);
+}
 /*buttons*/
 
 .btn-submit {
