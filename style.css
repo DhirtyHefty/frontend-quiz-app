@@ -36,6 +36,8 @@ body {
   --radius-md: 12px;
 
   --transition: 0.25s ease;
+
+  --bg-image: url("image/pattern-background-mobile-dark.svg")
 }
 
 /* Light theme */
@@ -46,13 +48,17 @@ body.light {
 
   --text-main: #0c1a2c;
   --text-muted: #5a6b85;
+
+  --bg-image: url("image/pattern-background-mobile-light.svg")
 }
+
+
 
 
 .bg-gradient {
   position: fixed;
   inset: 0;
-  background: url("image/background-pattern.svg") no-repeat center / cover;
+  background: var(--bg-image) no-repeat center / cover;
   z-index: -1;
 }
 
@@ -315,6 +321,15 @@ body.light {
 /*tablet*/
 
 @media (min-width: 768px) {
+  
+  :root{
+    --bg-image: url("image/pattern-background-tablet-dark.svg")
+  }
+
+  body.ligh{
+    --bg-image: url("image/pattern-background-tablet-light.svg")
+  }
+
   .subject-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -328,6 +343,14 @@ body.light {
 /*desktop*/
 
 @media (min-width: 1024px) {
+  
+  :root{
+    --bg-image: url("image/pattern-background-desktop-dark.svg")
+  }
+
+  body.light{
+    --bg-image: url("image/pattern-background-desktop-light.svg")
+  }
   .welcome-title {
     font-size: 3rem;
   }
