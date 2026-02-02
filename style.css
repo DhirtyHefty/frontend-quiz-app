@@ -219,6 +219,7 @@ body.light .icon-moon{
 .quiz-container {
   display: grid;
   gap: 1.5rem;
+  padding: 1.25rem;
 }
 
 .question-counter {
@@ -229,6 +230,8 @@ body.light .icon-moon{
 .question-text {
   font-size: 1.25rem;
   line-height: 1.4;
+  max-width: 250px;
+  width: 100%;
 }
 
 .progress-fill {
@@ -316,15 +319,18 @@ body.light .icon-moon{
 .results-container {
   display: grid;
   gap: 2rem;
+  padding: 1.25rem;
 }
 
 .results-title {
   margin: 0;
   font-size: 2rem;
+  color: var(--text-muted);
 }
 
 .results-subtitle {
-  color: var(--text-muted);
+  font-size: 2rem;
+  padding: 0;
 }
 
 .results-card {
@@ -342,7 +348,7 @@ body.light .icon-moon{
 }
 
 .score-number {
-  font-size: 3rem;
+  font-size: 5rem;
   font-weight: 700;
 }
 
@@ -353,7 +359,11 @@ body.light .icon-moon{
 /*tablet*/
 
 @media (min-width: 768px) {
-  
+  .subject-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
   :root{
     --bg-image: url("image/pattern-background-tablet-dark.svg")
   }
@@ -375,6 +385,21 @@ body.light .icon-moon{
 /*desktop*/
 
 @media (min-width: 1024px) {
+
+  #welcomeScreen.screen.active{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .welcome-text{
+    max-width: 420px;
+  }
+
+  .subject-grid{
+    align-self: start;
+  }
   
   :root{
     --bg-image: url("image/pattern-background-desktop-dark.svg")
@@ -388,8 +413,9 @@ body.light .icon-moon{
   }
 
   .subject-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
   }
 
   .quiz-container {
