@@ -53,6 +53,38 @@ body.light {
 }
 
 
+/*dark mode icons*/
+.icon-sun{
+  content: url("image/icon-sun-light.svg");
+}
+
+.icon-moon{
+  content: url("image/icon-moon-light.svg");
+} 
+
+/*light mode icons*/
+body.light .icon-sun{
+  content: url("image/icon-sun-dark.svg");
+}
+
+body.light .icon-moon{
+  content: url("image/icon-moon-dark.svg");
+}
+
+
+/*show sun in dark mode*/
+.icon-moon{
+  display: none;
+}
+
+/*light mode , show moon*/
+body.light .icon-sun{
+  display: none;
+}
+
+body.light .icon-moon{
+  display: inline;
+}
 
 
 .bg-gradient {
