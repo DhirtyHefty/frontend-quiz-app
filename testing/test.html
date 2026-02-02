@@ -1,0 +1,998 @@
+import React, { useState, useEffect } from 'react';
+
+// Quiz data structure
+const quizData = {
+  quizzes: [
+    {
+      title: "HTML",
+      icon: "📄",
+      color: "#FF7452",
+      questions: [
+        {
+          question: "What does HTML stand for?",
+          options: [
+            "Hyper Trainer Marking Language",
+            "Hyper Text Marketing Language",
+            "Hyper Text Markup Language",
+            "Hyper Text Markup Leveler"
+          ],
+          answer: 2
+        },
+        {
+          question: "Which HTML element is used for the largest heading?",
+          options: ["<head>", "<h6>", "<h1>", "<heading>"],
+          answer: 2
+        },
+        {
+          question: "What is the correct HTML element for inserting a line break?",
+          options: ["<break>", "<lb>", "<br>", "<newline>"],
+          answer: 2
+        },
+        {
+          question: "Which attribute is used to provide alternative text for an image?",
+          options: ["title", "alt", "src", "longdesc"],
+          answer: 1
+        },
+        {
+          question: "Which HTML tag is used to define an internal style sheet?",
+          options: ["<script>", "<css>", "<style>", "<styles>"],
+          answer: 2
+        },
+        {
+          question: "Which HTML attribute specifies an alternate text for an image?",
+          options: ["title", "alt", "src", "longdesc"],
+          answer: 1
+        },
+        {
+          question: "Which doctype is correct for HTML5?",
+          options: [
+            "<!DOCTYPE html>",
+            "<!DOCTYPE HTML5>",
+            "<!DOCTYPE HTML PUBLIC>",
+            "<DOCTYPE html>"
+          ],
+          answer: 0
+        },
+        {
+          question: "Which HTML element defines the title of a document?",
+          options: ["<meta>", "<head>", "<title>", "<header>"],
+          answer: 2
+        },
+        {
+          question: "Which HTML element is used to specify a footer for a document?",
+          options: ["<bottom>", "<section>", "<footer>", "<foot>"],
+          answer: 2
+        },
+        {
+          question: "In HTML, which attribute is used to specify that an input field must be filled?",
+          options: ["required", "validate", "placeholder", "formvalidate"],
+          answer: 0
+        }
+      ]
+    },
+    {
+      title: "CSS",
+      icon: "🎨",
+      color: "#2FD887",
+      questions: [
+        {
+          question: "What does CSS stand for?",
+          options: [
+            "Creative Style Sheets",
+            "Cascading Style Sheets",
+            "Computer Style Sheets",
+            "Colorful Style Sheets"
+          ],
+          answer: 1
+        },
+        {
+          question: "Which CSS property controls the text size?",
+          options: ["font-size", "text-size", "font-style", "text-style"],
+          answer: 0
+        },
+        {
+          question: "How do you select an element with id 'demo'?",
+          options: [".demo", "*demo", "#demo", "demo"],
+          answer: 2
+        },
+        {
+          question: "Which property is used to change the background color?",
+          options: ["color", "background-color", "bgcolor", "bg-color"],
+          answer: 1
+        },
+        {
+          question: "How do you make text bold in CSS?",
+          options: [
+            "font-weight: bold",
+            "text-style: bold",
+            "font-style: bold",
+            "text-weight: bold"
+          ],
+          answer: 0
+        },
+        {
+          question: "Which CSS property is used to change the text color?",
+          options: ["text-color", "font-color", "color", "fgcolor"],
+          answer: 2
+        },
+        {
+          question: "How do you center align text?",
+          options: [
+            "align: center",
+            "text-align: center",
+            "text: center",
+            "center-text"
+          ],
+          answer: 1
+        },
+        {
+          question: "Which property is used to add space between elements?",
+          options: ["spacing", "margin", "padding", "border"],
+          answer: 1
+        },
+        {
+          question: "What is the default value of the position property?",
+          options: ["relative", "fixed", "absolute", "static"],
+          answer: 3
+        },
+        {
+          question: "How do you make a flex container?",
+          options: [
+            "display: flex",
+            "flex: container",
+            "container: flex",
+            "display: flexbox"
+          ],
+          answer: 0
+        }
+      ]
+    },
+    {
+      title: "JavaScript",
+      icon: "⚡",
+      color: "#306AFF",
+      questions: [
+        {
+          question: "Which company developed JavaScript?",
+          options: ["Mozilla", "Netscape", "Microsoft", "Oracle"],
+          answer: 1
+        },
+        {
+          question: "Which symbol is used for single line comments in JavaScript?",
+          options: ["//", "/* */", "#", "--"],
+          answer: 0
+        },
+        {
+          question: "Which method is used to parse a string to an integer?",
+          options: ["parseInt()", "parseInteger()", "toInt()", "int()"],
+          answer: 0
+        },
+        {
+          question: "What keyword is used to declare a constant in JavaScript?",
+          options: ["var", "let", "const", "constant"],
+          answer: 2
+        },
+        {
+          question: "Which built-in method returns the length of a string?",
+          options: ["length()", "size()", "len()", "length"],
+          answer: 3
+        },
+        {
+          question: "Which operator is used to assign a value to a variable?",
+          options: ["*", "=", "-", "x"],
+          answer: 1
+        },
+        {
+          question: "What is the correct syntax for a for loop?",
+          options: [
+            "for (i = 0; i < 5)",
+            "for (i = 0; i < 5; i++)",
+            "for i = 0 to 5",
+            "for (i <= 5; i++)"
+          ],
+          answer: 1
+        },
+        {
+          question: "Which method is used to add an element at the end of an array?",
+          options: ["push()", "pop()", "shift()", "unshift()"],
+          answer: 0
+        },
+        {
+          question: "What does DOM stand for?",
+          options: [
+            "Document Object Model",
+            "Display Object Management",
+            "Document Oriented Model",
+            "Digital Object Model"
+          ],
+          answer: 0
+        },
+        {
+          question: "Which method is used to round a number to the nearest integer?",
+          options: ["round()", "Math.round()", "Math.rnd()", "rnd()"],
+          answer: 1
+        }
+      ]
+    },
+    {
+      title: "Accessibility",
+      icon: "♿",
+      color: "#A729F5",
+      questions: [
+        {
+          question: "What does WCAG stand for?",
+          options: [
+            "Web Content Accessibility Guidelines",
+            "Web Common Accessibility Guide",
+            "Website Content Accessibility Group",
+            "Web Compliance Accessibility Guidelines"
+          ],
+          answer: 0
+        },
+        {
+          question: "Which of these color contrast ratios defines the minimum WCAG 2.1 Level AA requirement for normal text?",
+          options: ["4.5:1", "3:1", "2.5:1", "5:1"],
+          answer: 0
+        },
+        {
+          question: "Which HTML element is used to define navigation links?",
+          options: ["<navigation>", "<nav>", "<navigate>", "<menu>"],
+          answer: 1
+        },
+        {
+          question: "What is the purpose of ARIA labels?",
+          options: [
+            "To style elements",
+            "To provide accessible names for elements",
+            "To add animations",
+            "To validate forms"
+          ],
+          answer: 1
+        },
+        {
+          question: "Which attribute makes an element focusable with keyboard?",
+          options: ["keyboard", "focus", "tabindex", "accessible"],
+          answer: 2
+        },
+        {
+          question: "What does the 'alt' attribute in images provide?",
+          options: [
+            "Alternative styling",
+            "Alternative text description",
+            "Alternative link",
+            "Alternative image source"
+          ],
+          answer: 1
+        },
+        {
+          question: "Which ARIA role identifies a navigation landmark?",
+          options: ["menu", "navigation", "nav", "links"],
+          answer: 1
+        },
+        {
+          question: "What is the minimum touch target size recommended for mobile?",
+          options: ["24x24px", "44x44px", "32x32px", "48x48px"],
+          answer: 1
+        },
+        {
+          question: "Which heading level comes after h1?",
+          options: ["h3", "h2", "heading2", "head2"],
+          answer: 1
+        },
+        {
+          question: "What does the 'lang' attribute specify?",
+          options: [
+            "Language of the page",
+            "Length of text",
+            "Layout direction",
+            "Link address"
+          ],
+          answer: 0
+        }
+      ]
+    }
+  ]
+};
+
+export default function App() {
+  const [theme, setTheme] = useState('dark');
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
+  const [score, setScore] = useState(0);
+  const [isQuizComplete, setIsQuizComplete] = useState(false);
+  const [error, setError] = useState('');
+  const [keyboardFocus, setKeyboardFocus] = useState(false);
+
+  useEffect(() => {
+    const handleKeyboard = (e) => {
+      if (e.key === 'Tab') {
+        setKeyboardFocus(true);
+      }
+    };
+    
+    const handleMouse = () => {
+      setKeyboardFocus(false);
+    };
+
+    window.addEventListener('keydown', handleKeyboard);
+    window.addEventListener('mousedown', handleMouse);
+    
+    return () => {
+      window.removeEventListener('keydown', handleKeyboard);
+      window.removeEventListener('mousedown', handleMouse);
+    };
+  }, []);
+
+  const handleQuizSelect = (quiz) => {
+    setSelectedQuiz(quiz);
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setIsAnswerSubmitted(false);
+    setScore(0);
+    setIsQuizComplete(false);
+    setError('');
+  };
+
+  const handleAnswerSelect = (index) => {
+    if (!isAnswerSubmitted) {
+      setSelectedAnswer(index);
+      setError('');
+    }
+  };
+
+  const handleSubmit = () => {
+    if (selectedAnswer === null) {
+      setError('Please select an answer');
+      return;
+    }
+
+    setIsAnswerSubmitted(true);
+    
+    if (selectedAnswer === selectedQuiz.questions[currentQuestion].answer) {
+      setScore(score + 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentQuestion < selectedQuiz.questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setSelectedAnswer(null);
+      setIsAnswerSubmitted(false);
+      setError('');
+    } else {
+      setIsQuizComplete(true);
+    }
+  };
+
+  const handlePlayAgain = () => {
+    setSelectedQuiz(null);
+    setCurrentQuestion(0);
+    setSelectedAnswer(null);
+    setIsAnswerSubmitted(false);
+    setScore(0);
+    setIsQuizComplete(false);
+    setError('');
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  const isCorrectAnswer = (index) => {
+    return index === selectedQuiz.questions[currentQuestion].answer;
+  };
+
+  const getOptionClass = (index) => {
+    if (!isAnswerSubmitted) {
+      return selectedAnswer === index ? 'selected' : '';
+    }
+    
+    if (isCorrectAnswer(index)) {
+      return 'correct';
+    }
+    
+    if (selectedAnswer === index && !isCorrectAnswer(index)) {
+      return 'incorrect';
+    }
+    
+    return '';
+  };
+
+  return (
+    <div className={`app ${theme} ${keyboardFocus ? 'keyboard-nav' : ''}`}>
+      <div className="container">
+        <header className="header">
+          <div className="header-content">
+            {selectedQuiz && (
+              <div className="quiz-badge">
+                <span className="quiz-icon" style={{ backgroundColor: selectedQuiz.color }}>
+                  {selectedQuiz.icon}
+                </span>
+                <span className="quiz-title">{selectedQuiz.title}</span>
+              </div>
+            )}
+            <button 
+              className="theme-toggle" 
+              onClick={toggleTheme}
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
+          </div>
+        </header>
+
+        <main className="main">
+          {!selectedQuiz ? (
+            <div className="welcome-screen">
+              <div className="welcome-text">
+                <h1 className="welcome-title">
+                  Welcome to the
+                  <br />
+                  <span className="gradient-text">Frontend Quiz!</span>
+                </h1>
+                <p className="welcome-subtitle">Pick a subject to get started</p>
+              </div>
+
+              <div className="quiz-selection">
+                {quizData.quizzes.map((quiz, index) => (
+                  <button
+                    key={index}
+                    className="quiz-card"
+                    onClick={() => handleQuizSelect(quiz)}
+                    tabIndex={0}
+                  >
+                    <span className="quiz-icon" style={{ backgroundColor: quiz.color }}>
+                      {quiz.icon}
+                    </span>
+                    <span className="quiz-name">{quiz.title}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : isQuizComplete ? (
+            <div className="complete-screen">
+              <div className="complete-text">
+                <h2 className="complete-title">
+                  Quiz completed
+                  <br />
+                  <span className="gradient-text">You scored...</span>
+                </h2>
+              </div>
+
+              <div className="score-card">
+                <div className="score-header">
+                  <span className="quiz-icon" style={{ backgroundColor: selectedQuiz.color }}>
+                    {selectedQuiz.icon}
+                  </span>
+                  <span className="quiz-title">{selectedQuiz.title}</span>
+                </div>
+                <div className="score-display">
+                  <div className="score-number">{score}</div>
+                  <div className="score-total">out of {selectedQuiz.questions.length}</div>
+                </div>
+                <button className="play-again-btn" onClick={handlePlayAgain}>
+                  Play Again
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="question-screen">
+              <div className="question-section">
+                <p className="question-counter">
+                  Question {currentQuestion + 1} of {selectedQuiz.questions.length}
+                </p>
+                <h2 className="question-text">
+                  {selectedQuiz.questions[currentQuestion].question}
+                </h2>
+                <div className="progress-bar">
+                  <div 
+                    className="progress-fill" 
+                    style={{ 
+                      width: `${((currentQuestion + 1) / selectedQuiz.questions.length) * 100}%`,
+                      backgroundColor: selectedQuiz.color
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="answer-section">
+                <div className="options">
+                  {selectedQuiz.questions[currentQuestion].options.map((option, index) => (
+                    <button
+                      key={index}
+                      className={`option ${getOptionClass(index)}`}
+                      onClick={() => handleAnswerSelect(index)}
+                      disabled={isAnswerSubmitted}
+                      tabIndex={0}
+                    >
+                      <span className="option-letter">
+                        {String.fromCharCode(65 + index)}
+                      </span>
+                      <span className="option-text">{option}</span>
+                      {isAnswerSubmitted && (
+                        <span className="option-icon">
+                          {isCorrectAnswer(index) ? '✓' : selectedAnswer === index ? '✗' : ''}
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+
+                {error && (
+                  <div className="error-message">
+                    <span className="error-icon">⚠️</span>
+                    {error}
+                  </div>
+                )}
+
+                <button
+                  className="submit-btn"
+                  onClick={isAnswerSubmitted ? handleNext : handleSubmit}
+                  style={{ backgroundColor: selectedQuiz.color }}
+                >
+                  {isAnswerSubmitted ? 'Next Question' : 'Submit Answer'}
+                </button>
+              </div>
+            </div>
+          )}
+        </main>
+      </div>
+
+      <style jsx>{`
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap');
+
+        .app {
+          min-height: 100vh;
+          font-family: 'Rubik', -apple-system, BlinkMacSystemFont, sans-serif;
+          transition: all 0.3s ease;
+          background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+          color: #ffffff;
+        }
+
+        .app.light {
+          background: linear-gradient(135deg, #f0f4f8 0%, #e8eef4 100%);
+          color: #1a1a2e;
+        }
+
+        .container {
+          max-width: 1160px;
+          margin: 0 auto;
+          padding: 2rem 1.5rem;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .header {
+          margin-bottom: 3rem;
+        }
+
+        .header-content {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .quiz-badge {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 0.5rem 1rem;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 12px;
+          backdrop-filter: blur(10px);
+        }
+
+        .light .quiz-badge {
+          background: rgba(0, 0, 0, 0.05);
+        }
+
+        .quiz-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.25rem;
+          transition: transform 0.3s ease;
+        }
+
+        .quiz-title {
+          font-weight: 600;
+          font-size: 1.125rem;
+        }
+
+        .theme-toggle {
+          width: 50px;
+          height: 50px;
+          border-radius: 12px;
+          border: none;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          cursor: pointer;
+          font-size: 1.5rem;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .theme-toggle:hover {
+          transform: scale(1.1) rotate(15deg);
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .light .theme-toggle {
+          background: rgba(0, 0, 0, 0.05);
+        }
+
+        .light .theme-toggle:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
+
+        .keyboard-nav *:focus {
+          outline: 3px solid #A729F5;
+          outline-offset: 3px;
+        }
+
+        .main {
+          flex: 1;
+          display: flex;
+          align-items: center;
+        }
+
+        .welcome-screen {
+          width: 100%;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          align-items: center;
+        }
+
+        .welcome-title {
+          font-size: 3.5rem;
+          font-weight: 300;
+          line-height: 1.2;
+          margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+          font-weight: 700;
+          background: linear-gradient(135deg, #A729F5 0%, #FF7452 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+          0%, 100% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+        }
+
+        .welcome-subtitle {
+          font-size: 1.25rem;
+          opacity: 0.7;
+          font-style: italic;
+        }
+
+        .quiz-selection {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .quiz-card {
+          padding: 1.25rem 1.5rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 2px solid transparent;
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          font-size: 1.125rem;
+          font-weight: 500;
+          color: inherit;
+          text-align: left;
+          backdrop-filter: blur(10px);
+        }
+
+        .quiz-card:hover {
+          transform: translateX(8px);
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .light .quiz-card {
+          background: rgba(0, 0, 0, 0.03);
+        }
+
+        .light .quiz-card:hover {
+          background: rgba(0, 0, 0, 0.06);
+          border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-name {
+          font-weight: 600;
+        }
+
+        .question-screen,
+        .complete-screen {
+          width: 100%;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4rem;
+          align-items: start;
+        }
+
+        .question-section {
+          position: sticky;
+          top: 2rem;
+        }
+        option {
+          padding: 1rem 1.25rem;
+          background: rgba(255, 255, 255, 0.05);
+          border: 3px solid transparent;
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-size: 1rem;
+          font-weight: 500;
+          color: inherit;
+          text-align: left;
+          position: relative;
+        }
+
+        .option:hover:not(:disabled) {
+          background: rgba(255, 255, 255, 0.08);
+          transform: translateX(4px);
+        }
+
+        .light .option {
+          background: rgba(0, 0, 0, 0.03);
+        }
+
+        .light .option:hover:not(:disabled) {
+          background: rgba(0, 0, 0, 0.06);
+        }
+
+        .option.selected {
+          border-color: #A729F5;
+          background: rgba(167, 41, 245, 0.1);
+        }
+
+        .option.correct {
+          border-color: #2FD887;
+          background: rgba(47, 216, 135, 0.1);
+        }
+
+        .option.incorrect {
+          border-color: #FF7452;
+          background: rgba(255, 116, 82, 0.1);
+        }
+
+        .option:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+
+        .option-letter {
+          width: 48px;
+          height: 48px;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          font-size: 1.125rem;
+          flex-shrink: 0;
+        }
+
+        .light .option-letter {
+          background: rgba(0, 0, 0, 0.05);
+        }
+
+        .option.selected .option-letter {
+          background: #A729F5;
+          color: white;
+        }
+
+        .option.correct .option-letter {
+          background: #2FD887;
+          color: white;
+        }
+
+        .option.incorrect .option-letter {
+          background: #FF7452;
+          color: white;
+        }
+
+        .option-text {
+          flex: 1;
+        }
+
+        .option-icon {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.25rem;
+          font-weight: bold;
+        }
+
+        .error-message {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          padding: 1rem 1.25rem;
+          background: rgba(255, 116, 82, 0.1);
+          border: 2px solid #FF7452;
+          border-radius: 12px;
+          color: #FF7452;
+          font-weight: 500;
+          animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-10px); }
+          75% { transform: translateX(10px); }
+        }
+
+        .error-icon {
+          font-size: 1.25rem;
+        }
+
+        .submit-btn {
+          padding: 1.25rem 2rem;
+          border: none;
+          border-radius: 16px;
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn:active {
+          transform: translateY(0);
+        }
+
+        .complete-text {
+          position: sticky;
+          top: 2rem;
+        }
+
+        .complete-title {
+          font-size: 3rem;
+          font-weight: 300;
+          line-height: 1.2;
+        }
+
+        .score-card {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 20px;
+          padding: 3rem;
+          backdrop-filter: blur(10px);
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+          text-align: center;
+        }
+
+        .light .score-card {
+          background: rgba(0, 0, 0, 0.03);
+        }
+
+        .score-header {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+        }
+
+        .score-display {
+          padding: 2rem 0;
+        }
+
+        .score-number {
+          font-size: 6rem;
+          font-weight: 700;
+          line-height: 1;
+          background: linear-gradient(135deg, #A729F5 0%, #FF7452 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .score-total {
+          font-size: 1.5rem;
+          opacity: 0.6;
+          margin-top: 0.5rem;
+        }
+
+        .play-again-btn {
+          padding: 1.25rem 2rem;
+          background: linear-gradient(135deg, #A729F5 0%, #FF7452 100%);
+          border: none;
+          border-radius: 16px;
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .play-again-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(167, 41, 245, 0.5);
+        }
+
+        @media (max-width: 768px) {
+          .container {
+            padding: 1.5rem 1rem;
+          }
+
+          .welcome-screen,
+          .question-screen,
+          .complete-screen {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+            welcome-title {
+            font-size: 2.5rem;
+          }
+
+          .question-text {
+            font-size: 1.5rem;
+          }
+
+          .complete-title {
+            font-size: 2rem;
+          }
+
+          .score-number {
+            font-size: 4rem;
+          }
+
+          .question-section {
+            position: static;
+          }
+
+          .complete-text {
+            position: static;
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
