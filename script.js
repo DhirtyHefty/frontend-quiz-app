@@ -116,16 +116,11 @@ function loadQuestion() {
     const label = document.createElement("label");
     label.setAttribute("tabindex", "0");
 
-    const input = document.createElement("input");
-    input.type = "radio";
-    input.name = "answer";
-    input.value = "option";
-
-    const span = document.createElement("span");
-    span.textContent = option;
-
-    label.appendChild(input);
-    label.appendChild(span);
+    label.innerHTML = `
+      <input type="radio" name="answer" value="${option}" />
+      <span class="option-letter"></span>
+      <span class="option-text">${option}</span>
+    `;
 
     label.addEventListener("click", () => {
       selectAnswer(option);
