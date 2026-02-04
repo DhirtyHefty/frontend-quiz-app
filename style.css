@@ -138,6 +138,7 @@ body.light .icon-moon{
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 1.25rem;
 }
 
 .subject-icon img{
