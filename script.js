@@ -112,29 +112,39 @@ function loadQuestion() {
 
   answersGrid.innerHTML = "";
 
-  question.options.forEach((option, index) => {
-    const label = document.createElement("label");
-    label.setAttribute("tabindex", "0");
+  question.options.forEach((option) => {
+  const label = document.createElement("label");
+  label.setAttribute("tabindex", "0");
 
-    label.innerHTML = `
-      <input type="radio" name="answer" value="${option}" />
-      <span class="option-letter"></span>
-      <span class="option-text">${option}</span>
-    `;
+  const input = document.createElement("input");
+  input.type = "radio";
+  input.name = "answer";
+  input.value = option;
 
-    label.addEventListener("click", () => {
-      selectAnswer(option);
-    });
+  const letter = document.createElement("span");
+  letter.className = "option-letter";
 
-    label.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        selectAnswer(option);
-      }
-    });
+  const text = document.createElement("span");
+  text.className = "option-text";
+  text.textContent = option; 
 
-    answersGrid.appendChild(label);
+  label.appendChild(input);
+  label.appendChild(letter);
+  label.appendChild(text);
+
+  label.addEventListener("click", () => {
+    selectAnswer(option);
   });
+
+  label.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      selectAnswer(option);
+    }
+  });
+
+  answersGrid.appendChild(label);
+});
 }
 
 /* SELECT ANSWER*/
